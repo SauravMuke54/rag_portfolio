@@ -1,0 +1,30 @@
+[project]
+name = "rag-portfolio"
+version = "0.1.0"
+description = "A RAG-based portfolio website for Saurav Muke"
+authors = [{name="Saurav Muke"}]
+readme = "README.md"
+
+[tool.poetry]
+packages = [
+    { include = "app" },
+    { include = "ingestion" },
+    { include = "utils" },
+    { include = "test"}
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+langchain = ">=1.2.6,<2.0.0"
+chromadb = ">=1.4.1,<2.0.0"
+streamlit = ">=1.53.0,<2.0.0"
+langchain-huggingface = ">=1.2.0,<2.0.0"
+langchain-chroma = ">=1.1.0,<2.0.0"
+sentence-transformers = "^5.2.0"
+langchain-groq = "^1.1.1"
+python-dotenv = "^1.2.1"
+langchain-community = "^0.4.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
