@@ -4,7 +4,7 @@ from typing import Dict, List
 
 from langchain_core.documents import Document
 from langchain_chroma import Chroma
-from utils.embeddings import get_embeddings
+from ..utils.embeddings import get_embeddings
 
 # Always resolve absolute path
 DATA_DIR = Path(__file__).parent.parent / "data"

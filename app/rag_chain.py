@@ -1,11 +1,11 @@
 from langchain_chroma import Chroma
 from langchain_core.prompts import PromptTemplate
-from prompt import PORTFOLIO_SYSTEM_PROMPT
+from .prompt import PORTFOLIO_SYSTEM_PROMPT
 # from langchain_core.memory import ConversationBufferMemory
 from langchain_classic.memory import ConversationBufferMemory
 from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_groq import ChatGroq
-from utils.embeddings import get_embeddings
+from ..utils.embeddings import get_embeddings
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
