@@ -127,7 +127,6 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.2.1
 pytz==2025.2
 PyYAML==6.0.3
--e git+https://github.com/SauravMuke54/rag_portfolio.git@3c620e10aa12b60c3bbee4d3462440173b9c6f20#egg=rag_portfolio
 RapidFuzz==3.14.3
 referencing==0.37.0
 regex==2026.1.15

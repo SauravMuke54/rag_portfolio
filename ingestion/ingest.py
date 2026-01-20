@@ -21,11 +21,16 @@ def parse_markdown(file_path: Path) -> Document:
         for line in f:
             if ":" in line and line.split(":")[0].isupper():
                 key, value = line.split(":", 1)
-                metadata[key.strip().lower] = value.strip()
+                if key in ["TYPE", "TITLE"]:
+                    metadata[key.strip().lower] = value.strip()
+                else:
+                    content_lines.append(line)
             else:
                 content_lines.append(line)
 
     content = "".join(content_lines).strip()
+    # print(metadata)
+    # print()
     
     return Document(page_content=content,
                     metadata={

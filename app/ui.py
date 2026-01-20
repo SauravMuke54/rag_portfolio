@@ -48,59 +48,29 @@ if "qa_chain" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-tab1,tab2 = st.tabs(["AI Assistant", "About"],width="stretch")
+st.chat_input("Type your question here...", key="user_input")
 
+if st.session_state.user_input:
+    user_message = st.session_state.user_input
+    st.session_state.messages.append({"role": "user", "content": user_message})
 
-with tab1:
-    st.chat_input("Type your question here...", key="user_input")
-
-    if st.session_state.user_input:
-        user_message = st.session_state.user_input
-        st.session_state.messages.append({"role": "user", "content": user_message})
-
-        with st.spinner("AI is thinking..."):
-            result = st.session_state.qa_chain.invoke({"question": user_message})
-            ai_message = result["answer"]
-            st.session_state.messages.append({"role": "assistant", "content": ai_message})
-            source_docs = result.get("source_documents", [])
-        for message in st.session_state.messages:
-            if message["role"] == "user":
-                st.chat_message("user").markdown(message["content"])
-            else:
-                st.chat_message("assistant").markdown(message["content"])
-        if source_docs:
-            with st.expander("Source Documents 📚"):
-                for i, doc in enumerate(source_docs):
-                    st.markdown(f"**Document {i+1}:**")
-                    st.markdown(f"- **Title:** {doc.metadata.get('title', 'N/A')}")
-                    st.markdown(f"- **Type:** {doc.metadata.get('type', 'N/A')}")
-                    st.markdown(f"- **Source:** {doc.metadata.get('source', 'N/A')}")
-                    content_preview = doc.page_content[:500] + ("..." if len(doc.page_content) > 500 else "")
-                    st.markdown(f"- **Content Preview:** {content_preview}")
-                    st.markdown("---")
-with tab2:
-    st.header("About This App")
-    st.markdown(
-        """
-        This application is designed to provide an interactive AI-powered assistant that can answer questions about my professional portfolio. 
-        It leverages advanced language models and a retrieval-augmented generation (RAG) approach to deliver accurate and contextually relevant responses.
-
-        ### Features:
-        - **AI-Powered Q&A**: Ask questions about my projects, skills, experience, and architecture decisions.
-        - **Contextual Responses**: The AI retrieves relevant information from my portfolio to provide informed answers.
-        - **Source Documents**: View the source documents used to generate the responses for transparency.
-
-        ### Technologies Used:
-        - **Streamlit**: For building the interactive web application.
-        - **LangChain**: To create the RAG chain for handling queries.
-        - **Chroma**: As the vector store for efficient document retrieval.
-        - **Groq LLM**: For generating human-like responses based on retrieved information.
-
-        ### Instructions:
-        1. Type your questions in the chat input box.
-        2. The AI will process your query and respond based on the portfolio data.
-        3. If available, you can view the source documents used for the response.
-
-        Feel free to explore and ask any questions related to my professional journey!
-        """
-    )
+    with st.spinner("AI is thinking..."):
+        result = st.session_state.qa_chain.invoke({"question": user_message})
+        ai_message = result["answer"]
+        st.session_state.messages.append({"role": "assistant", "content": ai_message})
+        source_docs = result.get("source_documents", [])
+    for message in st.session_state.messages:
+        if message["role"] == "user":
+            st.chat_message("user").markdown(message["content"])
+        else:
+            st.chat_message("assistant").markdown(message["content"])
+    if source_docs:
+        with st.expander("Source Documents 📚"):
+            for i, doc in enumerate(source_docs):
+                st.markdown(f"**Document {i+1}:**")
+                st.markdown(f"- **Title:** {doc.metadata.get('title', 'N/A')}")
+                st.markdown(f"- **Type:** {doc.metadata.get('type', 'N/A')}")
+                st.markdown(f"- **Source:** {doc.metadata.get('source', 'N/A')}")
+                content_preview = doc.page_content[:500] + ("..." if len(doc.page_content) > 500 else "")
+                st.markdown(f"- **Content Preview:** {content_preview}")
+                st.markdown("---")
