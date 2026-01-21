@@ -7,6 +7,7 @@ from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_groq import ChatGroq
 from utils.embeddings import get_embeddings
 from pathlib import Path
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -28,7 +29,7 @@ def build_rag_chain():
     )
 
     llm = ChatGroq(
-    model="openai/gpt-oss-120b",
+    model=os.getenv("GROQ_MODEL_NAME", "groq/compound"),
     temperature=0.2
 )
 
