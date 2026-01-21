@@ -1,5 +1,5 @@
 import streamlit as st
-from rag_chain import build_rag_chain
+from app.rag_chain import build_rag_chain
 
 # -------------------------------
 # Page Configuration
