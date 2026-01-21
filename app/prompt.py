@@ -8,6 +8,8 @@ Rules:
 3. Be concise, factual, and professional.
 4. Prefer impact, architecture, and technologies.
 5. Do not hallucinate or guess.
+6. Do not provide any reasoning steps, just the final answer.
+7. Answer only what is asked, provide detail information only if required.
 
 Context:
 {context}

@@ -14,7 +14,9 @@ st.set_page_config(
 # App Header
 # -------------------------------
 st.title("🤖 Saurav's Portfolio Manager")
-st.caption("Ask about my projects, skills, experience, and architecture decisions.")
+st.caption(" Available for questions about projects, skills, and experience.")
+
+st.markdown("<div style='height:2px; background-color:#2575fc; margin-bottom:20px;'></div>", unsafe_allow_html=True)
 
 st.sidebar.markdown(
     """
@@ -39,6 +41,10 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
+st.sidebar.markdown("---")
+st.sidebar.markdown("## Settings")
+show_source = st.sidebar.toggle("Show Source Documents", value=False,key="show_source")
+
 # -------------------------------
 # Initialize Session State
 # -------------------------------
@@ -47,30 +53,34 @@ if "qa_chain" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
+    
 st.chat_input("Type your question here...", key="user_input")
+st.chat_message("assistant").markdown("Hello ! I am  Saurav's Portfolio Assistant. How can I help you today?")
 
-if st.session_state.user_input:
-    user_message = st.session_state.user_input
-    st.session_state.messages.append({"role": "user", "content": user_message})
+try:
+    if st.session_state.user_input:
+        user_message = st.session_state.user_input
+        st.session_state.messages.append({"role": "user", "content": user_message})
 
-    with st.spinner("AI is thinking..."):
-        result = st.session_state.qa_chain.invoke({"question": user_message})
-        ai_message = result["answer"]
-        st.session_state.messages.append({"role": "assistant", "content": ai_message})
-        source_docs = result.get("source_documents", [])
-    for message in st.session_state.messages:
-        if message["role"] == "user":
-            st.chat_message("user").markdown(message["content"])
-        else:
-            st.chat_message("assistant").markdown(message["content"])
-    if source_docs:
-        with st.expander("Source Documents 📚"):
-            for i, doc in enumerate(source_docs):
-                st.markdown(f"**Document {i+1}:**")
-                st.markdown(f"- **Title:** {doc.metadata.get('title', 'N/A')}")
-                st.markdown(f"- **Type:** {doc.metadata.get('type', 'N/A')}")
-                st.markdown(f"- **Source:** {doc.metadata.get('source', 'N/A')}")
-                content_preview = doc.page_content[:500] + ("..." if len(doc.page_content) > 500 else "")
-                st.markdown(f"- **Content Preview:** {content_preview}")
-                st.markdown("---")
+        with st.spinner("AI is thinking..."):
+            result = st.session_state.qa_chain.invoke({"question": user_message})
+            ai_message = result["answer"]
+            st.session_state.messages.append({"role": "assistant", "content": ai_message})
+            source_docs = result.get("source_documents", [])
+        for message in st.session_state.messages:
+            if message["role"] == "user":
+                st.chat_message("user").markdown(message["content"])
+            else:
+                st.chat_message("assistant").markdown(message["content"])
+        if source_docs and st.session_state.show_source:
+            with st.expander("Source Documents 📚"):
+                for i, doc in enumerate(source_docs):
+                    st.markdown(f"**Document {i+1}:**")
+                    st.markdown(f"- **Title:** {doc.metadata.get('title', 'N/A')}")
+                    st.markdown(f"- **Type:** {doc.metadata.get('type', 'N/A')}")
+                    st.markdown(f"- **Source:** {doc.metadata.get('source', 'N/A')}")
+                    content_preview = doc.page_content[:500] + ("..." if len(doc.page_content) > 500 else "")
+                    st.markdown(f"- **Content Preview:** {content_preview}")
+                    st.markdown("---")
+except Exception as e:
+    st.toast(f"An error occurred: {e}", icon="⚠️")

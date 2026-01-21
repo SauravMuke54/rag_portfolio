@@ -1,6 +1,6 @@
 from langchain_chroma import Chroma
 from langchain_core.prompts import PromptTemplate
-from .prompt import PORTFOLIO_SYSTEM_PROMPT
+from .prompt import PORTFOLIO_SYSTEM_PROMPT # done for streamlit deployement remove . in other cases
 # from langchain_core.memory import ConversationBufferMemory
 from langchain_classic.memory import ConversationBufferMemory
 from langchain_classic.chains import ConversationalRetrievalChain
