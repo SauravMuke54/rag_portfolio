@@ -5,6 +5,7 @@ from typing import Dict, List
 from langchain_core.documents import Document
 from langchain_chroma import Chroma
 from utils.embeddings import get_embeddings
+import shutil
 
 # Always resolve absolute path
 DATA_DIR = Path(__file__).parent.parent / "data"
@@ -60,6 +61,12 @@ def main():
     
     # Initialize embeddings
     embeddings = get_embeddings()
+
+    # Delete existing vector store directory if it exists
+    if VECTORSTORE_DIR.exists():
+        # delete usings shutil
+        shutil.rmtree(VECTORSTORE_DIR)
+        print(f"Deleted existing vector store directory at {VECTORSTORE_DIR}")
     
     # Create Chroma vector store
     vectorstore = Chroma(collection_name = "portfolio", embedding_function = embeddings, persist_directory=str(VECTORSTORE_DIR))

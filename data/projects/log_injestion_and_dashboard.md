@@ -2,11 +2,8 @@ TYPE: project
 
 TITLE: Log Ingestion and Analytics Dashboard
 
-PROBLEM:
-Application logs were generated across multiple services and environments, making monitoring, debugging, and analysis fragmented, manual, and inefficient.
-
-SOLUTION:
-Designed and developed a distributed log ingestion and analytics system to collect, stream, store, and visualize logs from multiple services in near real time.
+DESCRIPTION:
+This project is a java based project built for log managment and streaming large amount of logs from multiple applications . Also this provides a dashboard which can help to monitor the log changes and track different types of logs across all projects.
 
 TECH STACK:
 Spring Boot, Kafka, MongoDB, Python, Streamlit

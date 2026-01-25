@@ -2,15 +2,11 @@ TYPE: project
 
 TITLE: Multi-Source Data Comparator
 
-PROBLEM:
-Comparing data across multiple sources was manual, slow, and error-prone.
-
-SOLUTION:
-Designed and developed a Python-based comparator framework that performs
-column-level and key-based comparison across heterogeneous data sources.
+DESCRIPTION: 
+This project is a python based multi-source-data-compartor which compares data across multiple sources like MYSQL,PostgreSQL,Oracle & CSV
 
 TECH STACK:
-Python, SQL, Airflow
+Python, SQL
 
 IMPACT:
 - Automated benchmarking process
